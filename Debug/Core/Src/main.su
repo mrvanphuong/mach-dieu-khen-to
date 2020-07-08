@@ -1,0 +1,16 @@
+main.c:162:6:check_out_time_machine	8	static
+main.c:176:6:write_Flash_Timer	8	static
+main.c:187:6:display	8	static
+main.c:210:6:clear_timer_fillter	8	static
+main.c:253:6:display_erro	8	static
+main.c:342:6:out_time_fillter	8	static
+main.c:383:6:on_end_display	16	static
+main.c:402:6:led_fan_action	16	static
+main.c:433:6:led_tanks_full	8	static
+main.c:474:5:main	8	static
+main.c:593:6:SystemClock_Config	80	static
+main.c:627:13:MX_IWDG_Init	8	static
+main.c:656:13:MX_TIM3_Init	32	static
+main.c:701:13:MX_TIM6_Init	8	static
+main.c:731:13:MX_GPIO_Init	48	static
+main.c:811:6:Error_Handler	8	static

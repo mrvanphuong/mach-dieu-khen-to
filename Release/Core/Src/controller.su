@@ -1,0 +1,16 @@
+controller.c:174:6:Activate_LED7_3	8	static
+controller.c:168:6:Activate_LED7_2	8	static
+controller.c:163:6:Activate_LED7_1	8	static
+controller.c:180:6:Activate_Segment_A	8	static
+controller.c:183:6:Activate_Segment_B	8	static
+controller.c:186:6:Activate_Segment_C	8	static
+controller.c:189:6:Activate_Segment_D	8	static
+controller.c:192:6:Activate_Segment_E	8	static
+controller.c:195:6:Activate_Segment_F	8	static
+controller.c:198:6:Activate_Segment_G	8	static
+controller.c:21:9:to_mess	4	static
+controller.c:11:10:time_to_array	16	static
+controller.c:58:6:increase_time	24	static
+controller.c:91:6:Writter_data	32	static
+controller.c:106:10:read_Flash	0	static
+controller.c:129:6:Controller_Display_Mess	32	static
