@@ -2,7 +2,10 @@
 #include "controller.h"
 
 extern uint32_t RO_time,CTO_time,PP1_time,OCB_time, Machine_time_run;
-extern uint8_t	CTO_time_p[3],RO_time_p[3],PP1_time_p[3],OCB_time_p[3];
+extern uint8_t	CTO_time_p[3];
+extern uint8_t 	RO_time_p[3];
+extern uint8_t	PP1_time_p[3];
+extern uint8_t 	OCB_time_p[3];
 uint8_t end_display_flag;
 uint8_t PP_Out_Time_Flag,OCB_Out_Time_Flag,CTO_Out_Time_Flag,RO_Out_Time_Flag;
 
@@ -131,7 +134,7 @@ void Controller_Display_Mess(uint8_t *mess,uint8_t* seven_segment_switch_flag,ui
 		    	Activate_Segment[j](value);
 		    }
 			*seven_segment_switch_flag=0;
-			mess++;
+			++mess;
 	    	i++;
 	    }
 	}

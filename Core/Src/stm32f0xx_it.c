@@ -109,8 +109,11 @@ static int erro_dislay_cnt;
 static int watch_Dog_cnt;
 static int write_Flash_cnt;
 
- uint32_t RO_time,CTO_time,PP1_time,OCB_time;
- uint8_t	*CTO_time_p,*RO_time_p,*PP1_time_p,*OCB_time_p;
+uint32_t RO_time,CTO_time,PP1_time,OCB_time;
+extern uint8_t		CTO_time_p[3];
+extern uint8_t 		RO_time_p[3];
+extern uint8_t		PP1_time_p[3];
+extern uint8_t 		OCB_time_p[3];
 
 
 

@@ -43,8 +43,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-IWDG_HandleTypeDef hiwdg;
-
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim6;
 
@@ -98,7 +96,10 @@ uint32_t	PP1_time ;
 uint32_t	OCB_time ;
 uint32_t    Machine_time_run;
 uint32_t	write_data;
-uint8_t		CTO_time_p[3],RO_time_p[3],PP1_time_p[3],OCB_time_p[3];
+uint8_t		CTO_time_p[3];
+uint8_t 	RO_time_p[3];
+uint8_t		PP1_time_p[3];
+uint8_t		OCB_time_p[3];
 uint8_t 	dislay_status_erro_cnt;
 
 GPIO_TypeDef *(fan_led_port[10])={
@@ -133,7 +134,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM6_Init(void);
-static void MX_IWDG_Init(void);
 /* USER CODE BEGIN PFP */
 void display(void);
 void on_end_display(uint8_t*);
@@ -497,7 +497,6 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM3_Init();
   MX_TIM6_Init();
-  MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
   	  	  HAL_TIM_Base_Start_IT(&htim3);
   	  	  HAL_TIM_Base_Start_IT(&htim6);
@@ -509,10 +508,12 @@ int main(void)
   	  	  if(HAL_GPIO_ReadPin(PUMP_STATUS_PORT, PUMP_STATUS_PIN)){
   	  		  Machine_time_run = read_Flash((0x08007000+16));
   	  	  }
+
   		time_to_array(PP1_time,PP1_time_p);
   		time_to_array(OCB_time,OCB_time_p);
   		time_to_array(CTO_time,CTO_time_p);
   		time_to_array(RO_time,RO_time_p);
+
   	  	HAL_GPIO_WritePin(LED7_A_PORT, LED7_A_PIN, GPIO_PIN_SET);
   	  		HAL_GPIO_WritePin(LED7_B_PORT, LED7_B_PIN, GPIO_PIN_SET);
   	  		HAL_GPIO_WritePin(LED7_C_PORT, LED7_C_PIN, GPIO_PIN_SET);
@@ -539,9 +540,9 @@ int main(void)
   	   HAL_GPIO_WritePin(LED7_G_PORT, LED7_G_PIN, GPIO_PIN_RESET);
   	 HAL_Delay(500);
 
-  	  	  watch_Dog_Trigger = 1;
-  	  	  IWDG->KR = 0xAAAA; // Writing 0xAAAA in the Key register prevents watchdog reset
-  	  	  IWDG->KR = 0xCCCC; // Start the independent watchdog timer
+//  	  	  watch_Dog_Trigger = 1;
+//  	  	  IWDG->KR = 0xAAAA; // Writing 0xAAAA in the Key register prevents watchdog reset
+//  	  	  IWDG->KR = 0xCCCC; // Start the independent watchdog timer
 
 
   /* USER CODE END 2 */
@@ -553,12 +554,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if(watch_Dog_Flag)
-	 	  		{
-
-	 	  			IWDG->KR = 0xAAAA;
-	 	  			watch_Dog_Flag = 0;
-	 	  		}
+//	  if(watch_Dog_Flag)
+//	 	  		{
+//
+//	 	  			IWDG->KR = 0xAAAA;
+//	 	  			watch_Dog_Flag = 0;
+//	 	  		}
 
 	  if (Write_Flash_flag){
 		  led_tank_full_flag =0;
@@ -596,9 +597,8 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -616,35 +616,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-}
-
-/**
-  * @brief IWDG Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_IWDG_Init(void)
-{
-
-  /* USER CODE BEGIN IWDG_Init 0 */
-
-  /* USER CODE END IWDG_Init 0 */
-
-  /* USER CODE BEGIN IWDG_Init 1 */
-
-  /* USER CODE END IWDG_Init 1 */
-  hiwdg.Instance = IWDG;
-  hiwdg.Init.Prescaler = IWDG_PRESCALER_256;
-  hiwdg.Init.Window = 4095;
-  hiwdg.Init.Reload = 4095;
-  if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN IWDG_Init 2 */
-
-  /* USER CODE END IWDG_Init 2 */
-
 }
 
 /**
